@@ -1,114 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>si_responsive_checker</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 2rem;
-      background: #f4f4f4;
-    }
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    h2 {
-      margin-bottom: 1rem;
-    }
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    input[type="text"], input[type="number"] {
-      padding: 0.5rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      background: #007bff;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-    .iframe-wrapper {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: center;
-    }
-    iframe {
-      border: 1px solid #aaa;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h2>📱 si_responsive_checker</h2>
-    <div class="controls">
-      <input id="urlInput" type="text" placeholder="Enter URL (http://localhost:3000 ...)" style="flex: 1;" />
-      <button onclick="loadPage()">Load Page</button>
-    </div>
-
-    <div class="controls">
-      <button onclick="resizeIframe(2560)">2560px</button>
-      <button onclick="resizeIframe(1920)">1920px</button>
-      <button onclick="resizeIframe(1440)">1440px</button>
-      <button onclick="resizeIframe(1024)">1024px</button>
-      <button onclick="resizeIframe(768)">768px</button>
-      <button onclick="resizeIframe(425)">425px</button>
-      <button onclick="resizeIframe(375)">375px</button>
-      <button onclick="resizeIframe(320)">320px</button>
-    </div>
-
-    <div class="controls">
-      <label>Custom Width:
-        <input id="customWidth" type="number" placeholder="Width (px)" min="100" />
-      </label>
-      <label>Custom Height:
-        <input id="customHeight" type="number" placeholder="Height (px)" min="100" />
-      </label>
-      <button onclick="applyCustomSize()">Apply Custom Size</button>
-    </div>
-
-    <div class="iframe-wrapper">
-      <iframe id="previewFrame" width="100%" height="600px" src="" title="Responsive Preview"></iframe>
-    </div>
-  </div>
-
-  <script>
-    const frame = document.getElementById("previewFrame");
-
-    function loadPage() {
-      const url = document.getElementById("urlInput").value;
-      if (url) {
-        frame.src = url;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>si_responsive_checker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
       }
-    }
+      .res-btn {
+        @apply px-6 py-4 rounded-lg text-sm font-medium transition duration-300 ease-in-out shadow-md border border-transparent;
+        background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      }
+      .res-btn:hover {
+        background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+        transform: scale(1.05);
+        color: black;
+      }
+      .btn-animated {
+        @apply transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md;
+      }
+      .device-frame {
+        padding: 20px;
+        background: #f5f5f5;
+        border-radius: 2rem;
+        box-shadow: 0 15px 25px rgba(0,0,0,0.15), inset 0 0 0 2px #ccc;
+        position: relative;
+      }
+      .device-frame::before {
+        content: '';
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70px;
+        height: 6px;
+        background: #999;
+        border-radius: 4px;
+      }
+      .cutom-screen{
+    padding: 15px 26px;
+    font-size: 16px;
+    background: #007cd3;
+    border-radius: 10px;
+    transition: linear 0.5s;
+    color: white;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-blue-100 to-purple-100 min-h-screen m-0">
+    <div class="w-full min-h-screen p-6 space-y-6 box-border">
+      <div class="flex items-center justify-between border-b pb-4">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 flex items-center gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-9 md:w-9 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h2a1 1 0 011 1v1h8V4a1 1 0 011-1h2a1 1 0 011 1v1h1a1 1 0 011 1v3H2V6a1 1 0 011-1h1V4z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 9h20v10a1 1 0 01-1 1H3a1 1 0 01-1-1V9z" />
+          </svg>
+          si_responsive_checker
+        </h1>
+      </div>
 
-    function resizeIframe(width) {
-      frame.width = width + 'px';
-    }
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <input id="urlInput" type="text" placeholder="Enter URL (http://localhost:3000 ...)" class="col-span-3 px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-300 w-full" />
+        <button onclick="loadPage()" class="btn-animated bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-xl w-full font-semibold">Load Page</button>
+      </div>
 
-    function applyCustomSize() {
-      const width = document.getElementById("customWidth").value;
-      const height = document.getElementById("customHeight").value;
-      if (width) frame.width = width + 'px';
-      if (height) frame.height = height + 'px';
-    }
-  </script>
-</body>
+      <div class="flex flex-wrap gap-3">
+        <button onclick="resizeIframe(2560)" class="res-btn cutom-screen">2560px</button>
+        <button onclick="resizeIframe(1920)" class="res-btn cutom-screen">1920px</button>
+        <button onclick="resizeIframe(1800)" class="res-btn cutom-screen">1800px</button>
+        <button onclick="resizeIframe(1700)" class="res-btn cutom-screen">1700px</button>
+        <button onclick="resizeIframe(1440)" class="res-btn cutom-screen">1440px</button>
+        <button onclick="resizeIframe(1356)" class="res-btn cutom-screen">1356px</button>
+        <button onclick="resizeIframe(1200)" class="res-btn cutom-screen">1200px</button>
+        <button onclick="resizeIframe(1156)" class="res-btn cutom-screen">1156px</button>
+        <button onclick="resizeIframe(1024)" class="res-btn cutom-screen">1024px</button>
+        <button onclick="resizeIframe(992)" class="res-btn cutom-screen">992px</button>
+        <button onclick="resizeIframe(768)" class="res-btn cutom-screen">768px</button>
+        <button onclick="resizeIframe(600)" class="res-btn cutom-screen">600px</button>
+        <button onclick="resizeIframe(578)" class="res-btn cutom-screen">578px</button>
+        <button onclick="resizeIframe(425)" class="res-btn cutom-screen">425px</button>
+        <button onclick="resizeIframe(375)" class="res-btn cutom-screen">375px</button>
+        <button onclick="resizeIframe(320)" class="res-btn cutom-screen">320px</button>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-4 items-center">
+        <input id="customWidth" type="number" placeholder="Width (px)" class="px-4 py-2 border border-gray-300 rounded-xl w-full md:w-auto" />
+        <input id="customHeight" type="number" placeholder="Height (px)" class="px-4 py-2 border border-gray-300 rounded-xl w-full md:w-auto" />
+        <button onclick="applyCustomSize()" class="btn-animated bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl w-full md:w-auto font-semibold">Apply Custom Size</button>
+      </div>
+
+      <div class="flex justify-center w-full h-full overflow-auto">
+        <div class="device-frame">
+          <iframe id="previewFrame" class="border-none bg-white" style="width: 100%; height: 85vh;"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const frame = document.getElementById("previewFrame");
+
+      function loadPage() {
+        const url = document.getElementById("urlInput").value;
+        if (url) {
+          frame.src = url;
+        }
+      }
+
+      function resizeIframe(width) {
+        frame.style.width = width + 'px';
+      }
+
+      function applyCustomSize() {
+        const width = document.getElementById("customWidth").value;
+        const height = document.getElementById("customHeight").value;
+        if (width) frame.style.width = width + 'px';
+        if (height) frame.style.height = height + 'px';
+      }
+    </script>
+  </body>
 </html>
