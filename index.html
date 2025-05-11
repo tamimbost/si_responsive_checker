@@ -41,12 +41,12 @@
         border-radius: 4px;
       }
       .cutom-screen{
-    padding: 15px 26px;
-    font-size: 16px;
-    background: #007cd3;
-    border-radius: 10px;
-    transition: linear 0.5s;
-    color: white;
+        padding: 15px 26px;
+        font-size: 16px;
+        background: #007cd3;
+        border-radius: 10px;
+        transition: linear 0.5s;
+        color: white;
       }
     </style>
   </head>
@@ -101,6 +101,7 @@
 
     <script>
       const frame = document.getElementById("previewFrame");
+      let activeButton = null;  // To track the active button
 
       function loadPage() {
         const url = document.getElementById("urlInput").value;
@@ -110,6 +111,25 @@
       }
 
       function resizeIframe(width) {
+        // Reset the active class from the previous button
+        if (activeButton) {
+          activeButton.classList.remove("bg-[rgb(255_73_0)]", "font-bold"); // Remove the active class
+        }
+
+        // Find the clicked button and add the active class
+        const buttons = document.querySelectorAll(".cutom-screen");
+        buttons.forEach((button) => {
+          button.classList.remove("bg-[rgb(255_73_0)]", "font-bold"); // Remove previous active class
+        });
+
+        // Set the clicked button as active
+        const clickedButton = Array.from(buttons).find(button => button.innerText === width + 'px');
+        if (clickedButton) {
+          clickedButton.classList.add("bg-[rgb(255_73_0)]", "font-bold"); // Apply active color and bold font
+          activeButton = clickedButton; // Update the active button reference
+        }
+
+        // Resize the iframe
         frame.style.width = width + 'px';
       }
 
